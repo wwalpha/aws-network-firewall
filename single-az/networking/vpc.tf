@@ -1,14 +1,14 @@
 resource "aws_vpc" "this" {
-  cidr_block           = "10.10.0.0/16"
+  cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
   tags = {
-    Name = "nfw_vpc"
+    Name = "anfw_vpc"
   }
 }
 
 resource "aws_internet_gateway" "igw" {
   tags = {
-    Name = "nfw_igw"
+    Name = "anfw_igw"
   }
 }
 
