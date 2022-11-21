@@ -1,12 +1,32 @@
+# ----------------------------------------------------------------------------------------------
+# AWS Network Firewall Policy
+# ----------------------------------------------------------------------------------------------
 resource "aws_networkfirewall_firewall_policy" "this" {
-  name = "firewall-policy"
+  name = "nfw-policy"
 
   firewall_policy {
-    stateless_default_actions          = ["aws:forward_to_sfe"]
+    stateless_default_actions          = ["aws:pass"]
     stateless_fragment_default_actions = ["aws:pass"]
+
+    # stateful_rule_group_reference {
+    #   priority     = 0
+    #   resource_arn = "arn:aws:network-firewall:ap-northeast-1:334678299258:stateful-rulegroup/allow-statefull"
+    # }
+
+    stateless_rule_group_reference {
+      priority     = 1
+      resource_arn = "arn:aws:network-firewall:ap-northeast-1:334678299258:stateless-rulegroup/allow-stateless"
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
+# ----------------------------------------------------------------------------------------------
+# AWS Network Firewall
+# ----------------------------------------------------------------------------------------------
 resource "aws_networkfirewall_firewall" "this" {
   name                              = "nfw"
   firewall_policy_arn               = aws_networkfirewall_firewall_policy.this.arn

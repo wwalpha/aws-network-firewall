@@ -1,3 +1,6 @@
+# ----------------------------------------------------------------------------------------------
+# AWS Subnet - Firewall
+# ----------------------------------------------------------------------------------------------
 resource "aws_subnet" "firewall" {
   count             = length(local.availability_zones)
   vpc_id            = aws_vpc.this.id
@@ -12,6 +15,9 @@ resource "aws_subnet" "firewall" {
   }
 }
 
+# ----------------------------------------------------------------------------------------------
+# AWS Subnet - Public
+# ----------------------------------------------------------------------------------------------
 resource "aws_subnet" "public" {
   count             = length(local.availability_zones)
   vpc_id            = aws_vpc.this.id
@@ -26,6 +32,9 @@ resource "aws_subnet" "public" {
   }
 }
 
+# ----------------------------------------------------------------------------------------------
+# AWS Subnet - Private
+# ----------------------------------------------------------------------------------------------
 resource "aws_subnet" "private" {
   count             = length(local.availability_zones)
   vpc_id            = aws_vpc.this.id
