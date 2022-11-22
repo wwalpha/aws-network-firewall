@@ -2,4 +2,4 @@
 
 ## Architecture
 
-![img](./docs/multi-az.png.png)
+![img](./docs/multi-az.png)
