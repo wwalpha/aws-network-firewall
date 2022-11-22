@@ -10,19 +10,19 @@ terraform {
 }
 
 module "networking" {
-  source = "./networking"
+  depends_on = [random_id.this]
+  source     = "./networking"
+  suffix     = local.suffix
 }
-
 
 module "security" {
   source = "./security"
-
   suffix = local.suffix
 }
 
 module "app" {
-  source = "./app"
-
+  depends_on           = [module.networking]
+  source               = "./app"
   vpc_id               = module.networking.vpc_id
   public_subnets       = module.networking.public_subnets[*].id
   private_subnets      = module.networking.private_subnets[*].id

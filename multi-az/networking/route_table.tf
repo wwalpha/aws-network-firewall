@@ -71,7 +71,7 @@ resource "aws_route_table" "public" {
   }
 
   route {
-    cidr_block      = aws_subnet.firewall[count.index].cidr_block
+    cidr_block      = aws_subnet.private[count.index].cidr_block
     vpc_endpoint_id = local.firewall_endpoints[count.index]
   }
 
